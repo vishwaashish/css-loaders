@@ -1,20 +1,20 @@
 .loader1 {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation1 1s linear infinite;
+  width: var(--loader-width);
+  height: var(--loader-width);
+  border: var(--loader-border) solid var(--loader-secondary);
+  border-bottom-color: var(--loader-primary);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation1 1s linear infinite;
 }
 
 @keyframes rotation1 {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }

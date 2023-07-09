@@ -12,15 +12,21 @@
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "framer-motion": "^10.12.18",
+    "fs": "^0.0.1-security",
     "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
+    "react-router-dom": "^6.14.1",
+    "remark-gfm": "^3.0.1",
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@types/body-scroll-lock": "^3.1.0",
     "prettier": "^3.0.0",
     "sass": "^1.63.6"
   }

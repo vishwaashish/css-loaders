@@ -1,0 +1,18 @@
+:root {
+  --body: white;
+  --loader-primary: #ff0000;
+  --loader-secondary: #ffffff;
+  --loader-modal-bg: #ffffff;
+  --loader-width: 48px;
+  --loader-border: 5px;
+  --loader-text: #263038;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body: #263038;
+    --primary: #ee82ee;
+    --loader-modal-bg: #263038;
+    --loader-text: #ffffff;
+  }
+}
