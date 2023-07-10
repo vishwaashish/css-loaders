@@ -1,8 +1,8 @@
 :root {
-  --body: white;
+  --body: #f4f4f4;
   --loader-primary: #ff0000;
-  --loader-secondary: #ffffff;
-  --loader-modal-bg: #ffffff;
+  --loader-secondary: #f4f4f4;
+  --loader-modal-bg: #f4f4f4;
   --loader-width: 48px;
   --loader-border: 5px;
   --loader-text: #263038;
@@ -13,6 +13,6 @@
     --body: #263038;
     --primary: #ee82ee;
     --loader-modal-bg: #263038;
-    --loader-text: #ffffff;
+    --loader-text: #f4f4f4;
   }
 }

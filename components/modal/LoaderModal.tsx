@@ -14,59 +14,42 @@ import { AnimateButton } from '../button'
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 const LoaderModal = memo(({ current, router, onClose }: any) => {
   const ref: any = useRef(null)
-  const [state, setState] = useState<any>({
-    size: 48,
-    primaryColor: '#ff0000',
-    secondaryColor: '#ffffff',
-  })
+  // const [state, setState] = useState<any>({
+  //   size: 48,
+  //   primaryColor: '#ff0000',
+  //   secondaryColor: '#ffffff',
+  // })
 
-  useEffect(() => {
-    // const data = async () => {
-    //   const response = await fetcher('/pages/api/scssfileData')
+  // useEffect(() => {
+  //   if (state.size) {
+  //     document.documentElement.style.setProperty(
+  //       '--loader-width',
+  //       state.size + 'px' || 'var(--loader-width)',
+  //     )
+  //   }
+  //   if (state.primaryColor) {
+  //     document.documentElement.style.setProperty(
+  //       '--loader-primary',
+  //       state.primaryColor || 'var(--loader-primary)',
+  //     )
+  //   }
+  //   if (state.primaryColor) {
+  //     document.documentElement.style.setProperty(
+  //       '--loader-secondary',
+  //       state.secondaryColor || 'var(--loader-secondary)',
+  //     )
+  //   }
+  // }, [state])
 
-    //   console.log(response, 'response')
-    // }
-
-    // console.log(ref, 'ref')
-    // data()
-    if (current) {
-      document.body.style.overflow = 'hidden'
-    }
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [])
-
-  useEffect(() => {
-    if (state.size) {
-      document.documentElement.style.setProperty(
-        '--loader-width',
-        state.size + 'px' || 'var(--loader-width)',
-      )
-    }
-    if (state.primaryColor) {
-      document.documentElement.style.setProperty(
-        '--loader-primary',
-        state.primaryColor || 'var(--loader-primary)',
-      )
-    }
-    if (state.primaryColor) {
-      document.documentElement.style.setProperty(
-        '--loader-secondary',
-        state.secondaryColor || 'var(--loader-secondary)',
-      )
-    }
-  }, [state])
-
-  const handleRange = (e: any) => {
-    setState((val: any) => ({ ...val, size: e.target.value }))
-  }
-  const handlePrimayColor = (e: any) => {
-    setState((val: any) => ({ ...val, primaryColor: e.target.value }))
-  }
-  const handleSecondaryColor = (e: any) => {
-    setState((val: any) => ({ ...val, secondaryColor: e.target.value }))
-  }
+  // const handleRange = (e: any) => {
+  //   setState((val: any) => ({ ...val, size: e.target.value }))
+  // }
+  // const handlePrimayColor = (e: any) => {
+  //   setState((val: any) => ({ ...val, primaryColor: e.target.value }))
+  // }
+  // const handleSecondaryColor = (e: any) => {
+  //   setState((val: any) => ({ ...val, secondaryColor: e.target.value }))
+  // }
 
   const modalStyle = {
     backdrop: {
@@ -165,7 +148,12 @@ const LoaderModal = memo(({ current, router, onClose }: any) => {
                   width: '100%',
                 }}
               > */}
-            <div className={`loader${current}`} ref={ref}></div>
+            <motion.div
+              key={`loader${current}`}
+              className={`loader${current}`}
+              ref={ref}
+            ></motion.div>
+
             {+current > 1 && (
               <NavigationButton type="left" onClick={prevAction} />
             )}

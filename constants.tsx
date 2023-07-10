@@ -1,4 +1,4 @@
-export const LOADER_COUNT = 40
+export const LOADER_COUNT = 24
 
 export const MODAL_BG = [
   '#845EC2',
@@ -35,10 +35,26 @@ export const LOADER_SIZES = [
   },
 ]
 
+export const LOADER_BORDER_SIZES = [
+  {
+    size: 3,
+    label: 'S',
+  },
+  {
+    size: 5,
+    label: 'M',
+  },
+  {
+    size: 7,
+    label: 'L',
+  },
+]
+
 export const DEFAULT_SETTINGS = {
   size: '48px',
   primaryColor: '#ff0000',
-  secondaryColor: '#ffffff',
+  secondaryColor: '#fff',
+  border: '5px',
 }
 
 export const LOADER = [

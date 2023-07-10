@@ -1,0 +1,21 @@
+.loader24 {
+  width: var(--loader-width);
+  height: var(--loader-width);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: calc(var(--loader-border) + 5px) solid;
+  border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25)
+    rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  animation: rotation24 1s linear infinite;
+}
+
+@keyframes rotation24 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

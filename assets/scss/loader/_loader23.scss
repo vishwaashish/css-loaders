@@ -1,0 +1,19 @@
+.loader23 {
+  width: var(--loader-width);
+  height: var(--loader-width);
+  border: var(--loader-border) solid;
+  border-color: var(--loader-primary) transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation23 1s linear infinite;
+}
+
+@keyframes rotation23 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 

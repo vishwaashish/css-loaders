@@ -1,0 +1,19 @@
+.loader8 {
+  width: var(--loader-width);
+  height: var(--loader-width);
+  border-radius: 50%;
+  display: inline-block;
+  border-top: var(--loader-border) solid var(--loader-secondary);
+  border-right: var(--loader-border) solid transparent;
+  box-sizing: border-box;
+  animation: rotation8 1s linear infinite;
+}
+
+@keyframes rotation8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -14,6 +14,7 @@ body {
   letter-spacing: 0.5px;
   font-weight: normal;
   font-size: 14px;
+  position: relative;
 }
 
 .main-body {
@@ -21,6 +22,15 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
+  height: 100%;
+}
+
+.main-container {
+  grid-area: main-container;
+}
+
+.sidebar-container {
+  grid-area: sidebar-container;
 }
 
 .main-container {
@@ -32,8 +42,8 @@ body {
   justify-content: space-between;
 
   .loaders {
-    min-width: 200px;
-    flex: 1 1 370px;
+    // min-width: 200px;
+    flex: 1 1 350px;
     width: 33.33%;
     height: 360px;
     padding: 10px;
@@ -56,22 +66,24 @@ body {
 }
 
 .sidebar-container {
-  width: 380px;
+  max-width: 380px;
+  min-width: 380px;
+  display: flex;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.3);
-  padding: 2rem;
   color: var(--loader-text);
-  height: auto;
-  position: sticky;
-  top: 0;
+  padding: 1rem;
+  justify-content: center;
 
   .sidebar-content {
     display: flex;
     height: 100%;
     flex-direction: column;
-    gap: 1rem;
-    width: 100%;
+    gap: 1.5rem;
+    position: fixed;
+    width: min-content;
     font-weight: normal;
+    justify-content: center;
   }
 
   .form-control {
@@ -196,7 +208,7 @@ body {
 
 .toggle-menu {
   @extend .transparent-btn;
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 2rem;
 }
@@ -271,4 +283,35 @@ button {
   height: 100%;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
   cursor: pointer;
+}
+
+.sidebar-overlay {
+  position: absolute;
+  height: 100%;
+  width: 0vw;
+  background-color: var(--body);
+  filter: blur(10px);
+}
+
+@media (max-width: 976px) {
+  .sidebar-overlay {
+    height: 100%;
+    width: 100vw;
+    background-color: var(--body);
+    filter: blur(10px);
+  }
+
+  .sidebar-container {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar-container {
+    min-width: 280px;
+  }
 }

@@ -1,0 +1,45 @@
+.loader16 {
+  width: var(--loader-width);
+  height: var(--loader-width);
+  border: var(--loader-border) dotted var(--loader-secondary);
+  border-style: solid solid dotted dotted;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation16 2s linear infinite;
+}
+.loader16::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: var(--loader-border) dotted var(--loader-primary);
+  border-style: solid solid dotted;
+  width: calc(var(--loader-width) - 15px);
+  height: calc(var(--loader-width) - 15px);
+  border-radius: 50%;
+  animation: rotationBack16 1s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotation16 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack16 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
