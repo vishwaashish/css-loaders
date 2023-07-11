@@ -1,9 +1,17 @@
 {
   "name": "loaders",
   "version": "0.1.0",
+  "author": "Ashishkumar Vishwakarma",
+  "homepage": "https://github.com/vishwaashish/css-loaders",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishwaashish/css-loaders"
+  },
   "scripts": {
     "dev": "next dev",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
