@@ -278,6 +278,10 @@ export default function Home({
                       <input type="text" value={state?.secondaryColor} />
                     </div>
                   </div>
+
+                  <div>
+                    <a href='https://github.com/vishwaashish'>@Ashishkumar Vishwakarma</a>
+                  </div>
                 </form>
               </motion.div>
             </>
