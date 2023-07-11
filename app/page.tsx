@@ -1,8 +1,4 @@
 'use client'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import { useMemo, useState, useEffect } from 'react'
-import '../assets/scss/style.scss'
 import LoaderModal from '@/components/modal/LoaderModal'
 import {
   DEFAULT_SETTINGS,
@@ -10,7 +6,11 @@ import {
   LOADER_COUNT,
   LOADER_SIZES,
 } from '@/constants'
-import { AnimateButton } from '@/components/button'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
+import '../assets/scss/style.scss'
+import MenuToggle from '../components/button/MenuToggle'
 
 export default function Home({
   searchParams,
@@ -104,6 +104,28 @@ export default function Home({
       DEFAULT_SETTINGS.secondaryColor,
     )
   }
+
+  const loaders = useMemo(
+    () =>
+      Array.from(
+        { length: LOADER_COUNT },
+        (x: number = 1, y: number = 2) => x + y,
+      ).map((item: number) => {
+        return (
+          <section
+            key={`loaders${item}`}
+            className="loaders"
+            onClick={() => {
+              router.push(`/?loader=${item}`)
+            }}
+          >
+            <span className={`loader${item}`}></span>
+          </section>
+        )
+      }),
+    [],
+  )
+
   const containerStyle = {
     sidebar: {
       initial: {
@@ -149,24 +171,7 @@ export default function Home({
   return (
     <>
       <div className="main-body">
-        <main className="main-container">
-          {Array.from(
-            { length: LOADER_COUNT },
-            (x: number = 1, y: number = 2) => x + y,
-          ).map((item: number) => {
-            return (
-              <section
-                key={`loaders${item}`}
-                className="loaders"
-                onClick={() => {
-                  router.push(`/?loader=${item}`)
-                }}
-              >
-                <span className={`loader${item}`}></span>
-              </section>
-            )
-          })}
-        </main>
+        <main className="main-container">{loaders}</main>
 
         <AnimatePresence>
           {assessbility && (
@@ -279,14 +284,10 @@ export default function Home({
           )}
         </AnimatePresence>
 
-        <AnimateButton
-          className="toggle-menu"
-          onClick={() => setAssessbility(val => !val)}
-        >
-          <svg height="20" viewBox="0 -960 960 960" width="20">
-            <path d="m249-186-63-63 231-231-231-230 63-64 231 230 231-230 63 64-230 230 230 231-63 63-231-230-231 230Z" />
-          </svg>
-        </AnimateButton>
+        <MenuToggle
+          toggle={() => setAssessbility(val => !val)}
+          active={assessbility}
+        />
       </div>
 
       <AnimatePresence>{currentLoader && ModalMemo}</AnimatePresence>
