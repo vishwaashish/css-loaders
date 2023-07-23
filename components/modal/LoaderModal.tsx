@@ -1,38 +1,37 @@
-import { LOADER_COUNT } from '@/constants'
+import { LOADER, modalStyle } from '@/constants'
 import { motion } from 'framer-motion'
-import { memo, useCallback } from 'react'
-import { AnimateButton } from '../button'
+import { memo, useCallback, useEffect, useState } from 'react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { AnimateButton, CopyButton } from '../button'
 import NavigationButton from '../button/NavigationButton'
+import { CopyCard } from '../card'
 
 const LoaderModal = memo(({ current, router, onClose }: any) => {
+  const [sourceCode, setSourceCode] = useState(false)
+  const [copyed, setCopyed] = useState('')
 
-  const modalStyle = {
-    backdrop: {
-      initial: {
-        opacity: 0,
-      },
-      open: {
-        opacity: 0.8,
-      },
-    },
-    dialog: {
-      initial: {
-        y: 700,
-        transition: {
-          duration: 0.3,
-        },
-      },
-      open: {
-        y: 0,
-        transition: {
-          type: 'spring',
-          damping: 25,
-          stiffness: 250,
-          duration: 0.3,
-        },
-      },
-    },
-  }
+  const currentLoader =
+    LOADER?.find((val: any) => val.id == current) ?? LOADER[0]
+
+  const [rootString] = useState(() => {
+    var style = getComputedStyle(document.body)
+    return `:root {
+      --loader-primary: ${style.getPropertyValue('--loader-primary')};
+      --loader-secondary: ${style.getPropertyValue('--loader-secondary')};
+      --loader-border: ${style.getPropertyValue('--loader-width')};
+      --loader-width: ${style.getPropertyValue('--loader-border')};
+    }
+  
+  `
+  })
+
+  useEffect(() => {
+    if (copyed) {
+      setTimeout(() => {
+        setCopyed('')
+      }, 3000)
+    }
+  }, [copyed])
 
   const preventDialogClick = useCallback((event: any) => {
     event.stopPropagation()
@@ -45,6 +44,16 @@ const LoaderModal = memo(({ current, router, onClose }: any) => {
   const prevAction = useCallback(() => {
     router.push(`?loader=${+current - 1}`)
   }, [router, current])
+
+  const toggleSourceCode = useCallback(() => {
+    setSourceCode(val => !val)
+  }, [router, current])
+
+  const copy = (value: string, type: string) => async () => {
+    return await navigator.clipboard
+      .writeText(value)
+      .then(() => setCopyed(type))
+  }
 
   return (
     <>
@@ -65,41 +74,99 @@ const LoaderModal = memo(({ current, router, onClose }: any) => {
             exit={modalStyle.dialog.initial}
             onClick={preventDialogClick}
           >
-            <AnimateButton className="loader-modal-close" onClick={onClose}>
-              <svg height="20" viewBox="0 -960 960 960" width="20">
-                <path d="m249-186-63-63 231-231-231-230 63-64 231 230 231-230 63 64-230 230 230 231-63 63-231-230-231 230Z" />
-              </svg>
-            </AnimateButton>
-
-            {/* <button className="loader-modal-source-code">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20"
-                viewBox="0 -960 960 960"
-                width="20"
+            <div className="loader-modal-header">
+              <div></div>
+              <AnimateButton
+                className="loader-modal-source-code"
+                onClick={toggleSourceCode}
               >
-                <path d="M309-220 47-482l265-265 65 65-198 199 197 196-67 67Zm340 3-65-65 199-199-197-197 65-65 263 261-265 265Z" />
-              </svg>
-              <label>Source Code</label>
-            </button> */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  viewBox="0 -960 960 960"
+                  width="20"
+                >
+                  <path d="M309-220 47-482l265-265 65 65-198 199 197 196-67 67Zm340 3-65-65 199-199-197-197 65-65 263 261-265 265Z" />
+                </svg>
+                Source Code
+              </AnimateButton>
 
-            <motion.div
-              initial={{
-                y: 100,
-              }}
-              animate={{
-                y: 0,
-              }}
-              key={`loader${current}`}
-              className={`loader${current}`}
-            ></motion.div>
+              <AnimateButton className="loader-modal-close" onClick={onClose}>
+                <svg height="20" viewBox="0 -960 960 960" width="20">
+                  <path d="m249-186-63-63 231-231-231-230 63-64 231 230 231-230 63 64-230 230 230 231-63 63-231-230-231 230Z" />
+                </svg>
+              </AnimateButton>
+            </div>
 
-            {+current > 1 && (
-              <NavigationButton type="left" onClick={prevAction} />
-            )}
-            {LOADER_COUNT > +current && (
-              <NavigationButton type="right" onClick={nextAction} />
-            )}
+            <div className="loader-modal-body">
+              <div className="loader_wrap">
+                <NavigationButton
+                  type="left"
+                  disabled={+current <= 1}
+                  onClick={prevAction}
+                />
+
+                <motion.div
+                  initial={{
+                    y: 100,
+                  }}
+                  animate={{
+                    y: 0,
+                  }}
+                >
+                  <style type="text/css" suppressHydrationWarning>
+                    {currentLoader.css}
+                  </style>
+                  <span
+                    dangerouslySetInnerHTML={{ __html: currentLoader.html }}
+                  />
+                </motion.div>
+
+                <NavigationButton
+                  disabled={LOADER.length - 1 < +current}
+                  type="right"
+                  onClick={nextAction}
+                />
+              </div>
+              <motion.div
+                className={`code_wrap ${sourceCode ? 'active' : ''}`}
+                initial="initial"
+                exit="initial"
+              >
+                <CopyCard
+                  title="HTML"
+                  titleProps={
+                    <CopyButton onClick={copy(currentLoader.html, 'html')} />
+                  }
+                  isCopy={copyed === 'html'}
+                >
+                  <SyntaxHighlighter
+                    language="html"
+                    showLineNumbers
+                    customStyle={{ margin: 0 }}
+                  >
+                    {currentLoader.html}
+                  </SyntaxHighlighter>
+                </CopyCard>
+                <CopyCard
+                  title="CSS"
+                  titleProps={
+                    <CopyButton
+                      onClick={copy(rootString + currentLoader.css, 'css')}
+                    />
+                  }
+                  isCopy={copyed === 'css'}
+                >
+                  <SyntaxHighlighter
+                    language="css"
+                    showLineNumbers
+                    customStyle={{ margin: 0, maxHeight: 350 }}
+                  >
+                    {rootString + currentLoader.css}
+                  </SyntaxHighlighter>
+                </CopyCard>
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </>

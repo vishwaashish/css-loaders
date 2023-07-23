@@ -1,6 +1,7 @@
 @import './common/variables';
 @import './common/menuToggle';
 @import './loader/loader';
+@import './common/modal';
 
 *,
 :after,
@@ -144,9 +145,11 @@ body {
       min-width: 40px;
       height: 40px;
     }
+
     input[type='color']::-webkit-color-swatch-wrapper {
       padding: 0;
     }
+
     input[type='color']::-webkit-color-swatch {
       border: none;
     }
@@ -157,55 +160,8 @@ body {
   }
 }
 
-.loader-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
 
-.loader-modal {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  place-content: center;
-  place-items: center;
-  pointer-events: none;
-}
 
-.loader-modal-dialog {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  background: var(--loader-modal-bg);
-  box-shadow:
-    0 2px 3px 0 rgba(0, 0, 0, 0.1),
-    0 10px
-      min(
-        calc(
-          1rem *
-            (
-              15 /
-                (
-                  var(--system-dimension-fontSizeDynamic) + 0.167 *
-                    var(--system-dimension-fontSizeDifference)
-                )
-            )
-        ),
-        15px
-      )
-      0 rgba(0, 0, 0, 0.06);
-  pointer-events: all;
-  will-change: transform;
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
 
 // .toggle-menu {
 //   @extend .transparent-btn;
@@ -220,12 +176,6 @@ body {
   border: none !important;
 }
 
-.loader-modal-close {
-  @extend .transparent-btn;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
 
 .transparent-btn {
   outline: none;
@@ -241,31 +191,14 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &:disabled {
+    background-color: rgba(255, 255, 255, 0.169);
+    cursor: default;
+  }
 }
 
-.loader-left-btn {
-  @extend .transparent-btn;
-  position: absolute;
-  left: 1rem;
-}
-.loader-right-btn {
-  @extend .transparent-btn;
-  position: absolute;
-  right: 1rem;
-}
 
-.loader-modal-source-code {
-  background: none;
-  display: flex;
-  align-items: center;
-  color: var(--loader-text);
-  cursor: pointer;
-  position: absolute;
-  top: 1rem;
-  border: none;
-  gap: 0.5rem;
-  font-weight: normal;
-}
 
 button {
   svg {
@@ -275,16 +208,7 @@ button {
   }
 }
 
-.loader-modal-backdrop {
-  position: fixed;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
-  cursor: pointer;
-}
+
 
 .sidebar-overlay {
   position: absolute;
@@ -309,6 +233,12 @@ button {
     right: 0;
     padding: 0;
   }
+}
+
+.copyIconButton {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
 }
 
 @media (max-width: 576px) {

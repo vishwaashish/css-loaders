@@ -1,0 +1,159 @@
+.loader-modal-backdrop {
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+    cursor: pointer;
+}
+
+.loader-modal-close {
+    @extend .transparent-btn;
+
+}
+
+.loader-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-modal {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    place-content: center;
+    place-items: center;
+    pointer-events: none;
+}
+
+.loader-modal-dialog {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background: var(--loader-modal-bg);
+    box-shadow:
+        0 2px 3px 0 rgba(0, 0, 0, 0.1),
+        0 10px min(calc(1rem * (15 / (var(--system-dimension-fontSizeDynamic) + 0.167 * var(--system-dimension-fontSizeDifference)))),
+            15px) 0 rgba(0, 0, 0, 0.06);
+    pointer-events: all;
+    will-change: transform;
+    height: 100%;
+    padding: 1rem;
+}
+
+
+
+.loader-modal-source-code {
+    background: none;
+    display: flex;
+    align-items: center;
+    color: var(--loader-text);
+    cursor: pointer;
+    border: none;
+    gap: 0.5rem;
+    font-weight: normal;
+}
+
+.loader-left-btn {
+    @extend .transparent-btn;
+
+
+}
+
+.loader-right-btn {
+    @extend .transparent-btn;
+}
+
+.loader_wrap {
+    min-height: 50vh;
+    position: relative;
+    flex: 1;
+    gap: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.loader-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.loader-modal-body {
+    display: flex;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+}
+
+
+.code_wrap {
+    max-width: 0px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: max-width 0.3s ease-in-out;
+
+    &.active {
+        max-width: 400px;
+    }
+}
+
+
+.card {
+    background: var(--card-header);
+    border-radius: 2px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.1rem 1rem;
+
+    .title {
+        color: var(--loader-text);
+        margin-right: auto;
+    }
+
+    .copied {
+        font-size: small;
+        color: white;
+        margin-left: 1rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .loader-modal-body {
+        flex-direction: column;
+        height: 100%;
+
+        .code_wrap {
+            max-width: 100%;
+            height: 0%;
+            overflow: auto;
+
+            transition: height 0.3s ease-in-out;
+
+            &.active {
+                height: 100%;
+            }
+        }
+
+    }
+}
